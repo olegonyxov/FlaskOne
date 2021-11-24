@@ -8,12 +8,8 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     image = url_for('static', filename='flask-logo.png')
-    return render_template("hello.html", name=image)
+    return render_template("hello.html", image=image)
     # return f'<img src ="{image}"/> <br> index'
-
-
-def hello(name=None):
-    return render_template('hello.html', name=name)
 
 
 @app.route('/login')
