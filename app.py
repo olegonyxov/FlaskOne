@@ -13,7 +13,7 @@ def make_resp_line():
     datenow = datetime.datetime.now().strftime("%d-%m-%Y")
     timenow = datetime.datetime.now().strftime("%H:%M:%S")
     end = time.monotonic()
-    respdelay = ":"+str(end - start)[0:4]+"s"+":"
+    respdelay = ":"+str(end - start)[0:4]+"s:"
     respuuid = str(uuid.uuid4())
     respline = respuuid + "\t" + respdelay + "\t" + datenow + "\t" + timenow
     return respline
