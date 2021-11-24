@@ -1,29 +1,33 @@
+import datetime
+import time
+import uuid
+
 from flask import Flask
 from flask import render_template
-from flask import url_for
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-    image = url_for('static', filename='flask-logo.png')
-    return render_template("hello.html", image=image)
-    # return f'<img src ="{image}"/> <br> index'
+def make_resp_line():
+    start = time.monotonic()
+    datenow = datetime.datetime.now().strftime("%d-%m-%Y")
+    timenow = datetime.datetime.now().strftime("%H:%M:%S")
+    end = time.monotonic()
+    respdelay = ":"+str(end - start)[0:4]+"s"+":"
+    respuuid = str(uuid.uuid4())
+    respline = respuuid + "\t" + respdelay + "\t" + datenow + "\t" + timenow
+    return respline
 
 
-@app.route('/login')
-def login():
-    return 'login'
+@app.route('/get_data/<int:count>', methods=['GET'])
+def index(count=1):
+    rlist = []
+    for i in range(count):
+        rlist.append(make_resp_line())
+
+    return render_template("get_data.html", count=count, rlist=rlist)
 
 
-@app.route('/user/<username>')
-def profile(username):
-    return f'{username}\'s profile'
-
-
-with app.test_request_context():
-    print(url_for('index'))
-    print(url_for('login'))
-    print(url_for('login', next='/'))
-    print(url_for('profile', username='John Doe'))
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"
