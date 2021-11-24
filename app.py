@@ -21,11 +21,10 @@ def make_resp_line():
 
 @app.route('/get_data/<int:count>', methods=['GET'])
 def index(count=1):
-    rlist = []
+    resplist = []
     for i in range(count):
-        rlist.append(make_resp_line())
-
-    return render_template("get_data.html", count=count, rlist=rlist)
+        resplist.append(make_resp_line())
+    return render_template("get_data.html", rlist=resplist)
 
 
 @app.route("/")
