@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 
 def make_resp_line():
+    # a=1
     start = time.monotonic()
     datenow = datetime.datetime.now().strftime("%d-%m-%Y")
     timenow = datetime.datetime.now().strftime("%H:%M:%S")
